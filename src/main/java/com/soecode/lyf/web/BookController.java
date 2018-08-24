@@ -39,6 +39,8 @@ public class BookController {
 		return "list";// WEB-INF/jsp/"list".jsp
 	}
 
+
+	
 	@RequestMapping(value = "/{bookId}/detail", method = RequestMethod.GET)
 	private String detail(@PathVariable("bookId") Long bookId, Model model) {
 		if (bookId == null) {
