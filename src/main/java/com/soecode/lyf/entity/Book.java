@@ -1,53 +1,75 @@
 package com.soecode.lyf.entity;
 
-/**
- * 图书实体
- */
+import java.util.Date;
+
 public class Book {
+    private Integer book_id;
 
-	private long bookId;// 图书ID
+    private String book_name;
 
-	private String name;// 图书名称
+    private String book_writer;
 
-	private int number;// 馆藏数量
+    private Date book_year;
 
-	public Book() {
-	}
+    private String book_press;
 
-	public Book(long bookId, String name, int number) {
-		this.bookId = bookId;
-		this.name = name;
-		this.number = number;
-	}
+    private String commodity_type;
 
-	public long getBookId() {
-		return bookId;
-	}
+    private Integer commodity_id;
 
-	public void setBookId(long bookId) {
-		this.bookId = bookId;
-	}
+    public Integer getBook_id() {
+        return book_id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setBook_id(Integer book_id) {
+        this.book_id = book_id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getBook_name() {
+        return book_name;
+    }
 
-	public int getNumber() {
-		return number;
-	}
+    public void setBook_name(String book_name) {
+        this.book_name = book_name == null ? null : book_name.trim();
+    }
 
-	public void setNumber(int number) {
-		this.number = number;
-	}
+    public String getBook_writer() {
+        return book_writer;
+    }
 
-	@Override
-	public String toString() {
-		return "Book [bookId=" + bookId + ", name=" + name + ", number=" + number + "]";
-	}
+    public void setBook_writer(String book_writer) {
+        this.book_writer = book_writer == null ? null : book_writer.trim();
+    }
 
+    public Date getBook_year() {
+        return book_year;
+    }
 
+    public void setBook_year(Date book_year) {
+        this.book_year = book_year;
+    }
+
+    public String getBook_press() {
+        return book_press;
+    }
+
+    public void setBook_press(String book_press) {
+        this.book_press = book_press == null ? null : book_press.trim();
+    }
+
+    public String getCommodity_type() {
+        return commodity_type;
+    }
+
+    public void setCommodity_type(String commodity_type) {
+        this.commodity_type = commodity_type == null ? null : commodity_type.trim();
+    }
+
+    public Integer getCommodity_id() {
+        return commodity_id;
+    }
+
+    public void setCommodity_id(Integer commodity_id) {
+        this.commodity_id = commodity_id;
+    }
 }

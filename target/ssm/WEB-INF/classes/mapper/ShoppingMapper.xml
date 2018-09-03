@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.soecode.lyf.mapper.ShoppingMapper" >
+  <resultMap id="BaseResultMap" type="com.soecode.lyf.entity.Shopping" >
+    <id column="buy_id" property="buy_id" jdbcType="INTEGER" />
+    <result column="buy_number" property="buy_number" jdbcType="INTEGER" />
+    <result column="buy_total" property="buy_total" jdbcType="VARCHAR" />
+    <result column="commodity_id" property="commodity_id" jdbcType="INTEGER" />
+    <result column="user_id" property="user_id" jdbcType="INTEGER" />
+    <result column="administrators_id" property="administrators_id" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    buy_id, buy_number, buy_total, commodity_id, user_id, administrators_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from Shopping
+    where buy_id = #{buy_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from Shopping
+    where buy_id = #{buy_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.soecode.lyf.entity.Shopping" >
+    insert into Shopping (buy_id, buy_number, buy_total, 
+      commodity_id, user_id, administrators_id
+      )
+    values (#{buy_id,jdbcType=INTEGER}, #{buy_number,jdbcType=INTEGER}, #{buy_total,jdbcType=VARCHAR}, 
+      #{commodity_id,jdbcType=INTEGER}, #{user_id,jdbcType=INTEGER}, #{administrators_id,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.soecode.lyf.entity.Shopping" >
+    insert into Shopping
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="buy_id != null" >
+        buy_id,
+      </if>
+      <if test="buy_number != null" >
+        buy_number,
+      </if>
+      <if test="buy_total != null" >
+        buy_total,
+      </if>
+      <if test="commodity_id != null" >
+        commodity_id,
+      </if>
+      <if test="user_id != null" >
+        user_id,
+      </if>
+      <if test="administrators_id != null" >
+        administrators_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="buy_id != null" >
+        #{buy_id,jdbcType=INTEGER},
+      </if>
+      <if test="buy_number != null" >
+        #{buy_number,jdbcType=INTEGER},
+      </if>
+      <if test="buy_total != null" >
+        #{buy_total,jdbcType=VARCHAR},
+      </if>
+      <if test="commodity_id != null" >
+        #{commodity_id,jdbcType=INTEGER},
+      </if>
+      <if test="user_id != null" >
+        #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="administrators_id != null" >
+        #{administrators_id,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.lyf.entity.Shopping" >
+    update Shopping
+    <set >
+      <if test="buy_number != null" >
+        buy_number = #{buy_number,jdbcType=INTEGER},
+      </if>
+      <if test="buy_total != null" >
+        buy_total = #{buy_total,jdbcType=VARCHAR},
+      </if>
+      <if test="commodity_id != null" >
+        commodity_id = #{commodity_id,jdbcType=INTEGER},
+      </if>
+      <if test="user_id != null" >
+        user_id = #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="administrators_id != null" >
+        administrators_id = #{administrators_id,jdbcType=INTEGER},
+      </if>
+    </set>
+    where buy_id = #{buy_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.soecode.lyf.entity.Shopping" >
+    update Shopping
+    set buy_number = #{buy_number,jdbcType=INTEGER},
+      buy_total = #{buy_total,jdbcType=VARCHAR},
+      commodity_id = #{commodity_id,jdbcType=INTEGER},
+      user_id = #{user_id,jdbcType=INTEGER},
+      administrators_id = #{administrators_id,jdbcType=INTEGER}
+    where buy_id = #{buy_id,jdbcType=INTEGER}
+  </update>
+</mapper>

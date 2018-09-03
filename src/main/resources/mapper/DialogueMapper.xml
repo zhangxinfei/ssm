@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.soecode.lyf.mapper.DialogueMapper" >
+  <resultMap id="BaseResultMap" type="com.soecode.lyf.entity.Dialogue" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="dialogue_user" property="dialogue_user" jdbcType="INTEGER" />
+    <result column="dialogue_friend" property="dialogue_friend" jdbcType="INTEGER" />
+    <result column="dialogue_type" property="dialogue_type" jdbcType="VARCHAR" />
+    <result column="send_time" property="send_time" jdbcType="TIMESTAMP" />
+    <result column="read_time" property="read_time" jdbcType="TIMESTAMP" />
+    <result column="dialogue_status" property="dialogue_status" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.soecode.lyf.entity.Dialogue" extends="BaseResultMap" >
+    <result column="contentt" property="contentt" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, dialogue_user, dialogue_friend, dialogue_type, send_time, read_time, dialogue_status
+  </sql>
+  <sql id="Blob_Column_List" >
+    contentt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dialogue
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dialogue
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.soecode.lyf.entity.Dialogue" >
+    insert into dialogue (id, dialogue_user, dialogue_friend, 
+      dialogue_type, send_time, read_time, 
+      dialogue_status, contentt)
+    values (#{id,jdbcType=INTEGER}, #{dialogue_user,jdbcType=INTEGER}, #{dialogue_friend,jdbcType=INTEGER}, 
+      #{dialogue_type,jdbcType=VARCHAR}, #{send_time,jdbcType=TIMESTAMP}, #{read_time,jdbcType=TIMESTAMP}, 
+      #{dialogue_status,jdbcType=INTEGER}, #{contentt,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.soecode.lyf.entity.Dialogue" >
+    insert into dialogue
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dialogue_user != null" >
+        dialogue_user,
+      </if>
+      <if test="dialogue_friend != null" >
+        dialogue_friend,
+      </if>
+      <if test="dialogue_type != null" >
+        dialogue_type,
+      </if>
+      <if test="send_time != null" >
+        send_time,
+      </if>
+      <if test="read_time != null" >
+        read_time,
+      </if>
+      <if test="dialogue_status != null" >
+        dialogue_status,
+      </if>
+      <if test="contentt != null" >
+        contentt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dialogue_user != null" >
+        #{dialogue_user,jdbcType=INTEGER},
+      </if>
+      <if test="dialogue_friend != null" >
+        #{dialogue_friend,jdbcType=INTEGER},
+      </if>
+      <if test="dialogue_type != null" >
+        #{dialogue_type,jdbcType=VARCHAR},
+      </if>
+      <if test="send_time != null" >
+        #{send_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="read_time != null" >
+        #{read_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dialogue_status != null" >
+        #{dialogue_status,jdbcType=INTEGER},
+      </if>
+      <if test="contentt != null" >
+        #{contentt,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.lyf.entity.Dialogue" >
+    update dialogue
+    <set >
+      <if test="dialogue_user != null" >
+        dialogue_user = #{dialogue_user,jdbcType=INTEGER},
+      </if>
+      <if test="dialogue_friend != null" >
+        dialogue_friend = #{dialogue_friend,jdbcType=INTEGER},
+      </if>
+      <if test="dialogue_type != null" >
+        dialogue_type = #{dialogue_type,jdbcType=VARCHAR},
+      </if>
+      <if test="send_time != null" >
+        send_time = #{send_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="read_time != null" >
+        read_time = #{read_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dialogue_status != null" >
+        dialogue_status = #{dialogue_status,jdbcType=INTEGER},
+      </if>
+      <if test="contentt != null" >
+        contentt = #{contentt,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.soecode.lyf.entity.Dialogue" >
+    update dialogue
+    set dialogue_user = #{dialogue_user,jdbcType=INTEGER},
+      dialogue_friend = #{dialogue_friend,jdbcType=INTEGER},
+      dialogue_type = #{dialogue_type,jdbcType=VARCHAR},
+      send_time = #{send_time,jdbcType=TIMESTAMP},
+      read_time = #{read_time,jdbcType=TIMESTAMP},
+      dialogue_status = #{dialogue_status,jdbcType=INTEGER},
+      contentt = #{contentt,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.soecode.lyf.entity.Dialogue" >
+    update dialogue
+    set dialogue_user = #{dialogue_user,jdbcType=INTEGER},
+      dialogue_friend = #{dialogue_friend,jdbcType=INTEGER},
+      dialogue_type = #{dialogue_type,jdbcType=VARCHAR},
+      send_time = #{send_time,jdbcType=TIMESTAMP},
+      read_time = #{read_time,jdbcType=TIMESTAMP},
+      dialogue_status = #{dialogue_status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

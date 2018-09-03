@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.soecode.lyf.mapper.AdministratorsMapper" >
+  <resultMap id="BaseResultMap" type="com.soecode.lyf.entity.Administrators" >
+    <id column="administrators_id" property="administrators_id" jdbcType="INTEGER" />
+    <result column="administrators_name" property="administrators_name" jdbcType="VARCHAR" />
+    <result column="administrators_number" property="administrators_number" jdbcType="INTEGER" />
+    <result column="administrators_iphone" property="administrators_iphone" jdbcType="VARCHAR" />
+    <result column="login_state" property="login_state" jdbcType="INTEGER" />
+    <result column="administrators_status" property="administrators_status" jdbcType="INTEGER" />
+    <result column="administrators_level" property="administrators_level" jdbcType="INTEGER" />
+    <result column="administrators_nickname" property="administrators_nickname" jdbcType="VARCHAR" />
+    <result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    administrators_id, administrators_name, administrators_number, administrators_iphone, 
+    login_state, administrators_status, administrators_level, administrators_nickname, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from Administrators
+    where administrators_id = #{administrators_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from Administrators
+    where administrators_id = #{administrators_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.soecode.lyf.entity.Administrators" >
+    insert into Administrators (administrators_id, administrators_name, 
+      administrators_number, administrators_iphone, 
+      login_state, administrators_status, administrators_level, 
+      administrators_nickname, create_time, 
+      update_time)
+    values (#{administrators_id,jdbcType=INTEGER}, #{administrators_name,jdbcType=VARCHAR}, 
+      #{administrators_number,jdbcType=INTEGER}, #{administrators_iphone,jdbcType=VARCHAR}, 
+      #{login_state,jdbcType=INTEGER}, #{administrators_status,jdbcType=INTEGER}, #{administrators_level,jdbcType=INTEGER}, 
+      #{administrators_nickname,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP}, 
+      #{update_time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.soecode.lyf.entity.Administrators" >
+    insert into Administrators
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="administrators_id != null" >
+        administrators_id,
+      </if>
+      <if test="administrators_name != null" >
+        administrators_name,
+      </if>
+      <if test="administrators_number != null" >
+        administrators_number,
+      </if>
+      <if test="administrators_iphone != null" >
+        administrators_iphone,
+      </if>
+      <if test="login_state != null" >
+        login_state,
+      </if>
+      <if test="administrators_status != null" >
+        administrators_status,
+      </if>
+      <if test="administrators_level != null" >
+        administrators_level,
+      </if>
+      <if test="administrators_nickname != null" >
+        administrators_nickname,
+      </if>
+      <if test="create_time != null" >
+        create_time,
+      </if>
+      <if test="update_time != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="administrators_id != null" >
+        #{administrators_id,jdbcType=INTEGER},
+      </if>
+      <if test="administrators_name != null" >
+        #{administrators_name,jdbcType=VARCHAR},
+      </if>
+      <if test="administrators_number != null" >
+        #{administrators_number,jdbcType=INTEGER},
+      </if>
+      <if test="administrators_iphone != null" >
+        #{administrators_iphone,jdbcType=VARCHAR},
+      </if>
+      <if test="login_state != null" >
+        #{login_state,jdbcType=INTEGER},
+      </if>
+      <if test="administrators_status != null" >
+        #{administrators_status,jdbcType=INTEGER},
+      </if>
+      <if test="administrators_level != null" >
+        #{administrators_level,jdbcType=INTEGER},
+      </if>
+      <if test="administrators_nickname != null" >
+        #{administrators_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null" >
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null" >
+        #{update_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.lyf.entity.Administrators" >
+    update Administrators
+    <set >
+      <if test="administrators_name != null" >
+        administrators_name = #{administrators_name,jdbcType=VARCHAR},
+      </if>
+      <if test="administrators_number != null" >
+        administrators_number = #{administrators_number,jdbcType=INTEGER},
+      </if>
+      <if test="administrators_iphone != null" >
+        administrators_iphone = #{administrators_iphone,jdbcType=VARCHAR},
+      </if>
+      <if test="login_state != null" >
+        login_state = #{login_state,jdbcType=INTEGER},
+      </if>
+      <if test="administrators_status != null" >
+        administrators_status = #{administrators_status,jdbcType=INTEGER},
+      </if>
+      <if test="administrators_level != null" >
+        administrators_level = #{administrators_level,jdbcType=INTEGER},
+      </if>
+      <if test="administrators_nickname != null" >
+        administrators_nickname = #{administrators_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null" >
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null" >
+        update_time = #{update_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where administrators_id = #{administrators_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.soecode.lyf.entity.Administrators" >
+    update Administrators
+    set administrators_name = #{administrators_name,jdbcType=VARCHAR},
+      administrators_number = #{administrators_number,jdbcType=INTEGER},
+      administrators_iphone = #{administrators_iphone,jdbcType=VARCHAR},
+      login_state = #{login_state,jdbcType=INTEGER},
+      administrators_status = #{administrators_status,jdbcType=INTEGER},
+      administrators_level = #{administrators_level,jdbcType=INTEGER},
+      administrators_nickname = #{administrators_nickname,jdbcType=VARCHAR},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP}
+    where administrators_id = #{administrators_id,jdbcType=INTEGER}
+  </update>
+</mapper>
