@@ -18,7 +18,16 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     /*
-     * 通过id和密码判断用户登录
+     * 通过学号和密码判断用户登录
      */
-    int selectByKeyAndPassword(UserParams user);
+    int selectByKeyAndPassword(UserParams userParams);
+    /*
+     * 通过id修改用户信息
+     */
+    int updateByUserID(UserParams userParams);
+    /*
+     * 通过用户id查询用户表
+     */
+    int selectByUserId(UserParams userParams);
+
 }

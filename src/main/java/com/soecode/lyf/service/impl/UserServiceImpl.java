@@ -20,17 +20,30 @@ public class UserServiceImpl implements UserService {
     //    日志
     final static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    public ResultModel selectByKeyAndPassword(HttpServletRequest request, UserParams user) {
+    public ResultModel selectByKeyAndPassword(HttpServletRequest request, UserParams userParams) {
 //        初始化序列化结果集
         ResultModel result = ResultUtil.info(WizardAuditEnum.StatusEnum.STATUS_FAIL.getValue(),WizardAuditEnum.StatusEnum.STATUS_FAIL.getDesc());
 //        查询数据库，返回值为0的化就是没有登录失败，为1的化就是成功
         logger.info("登录验证—>start");
-        int influence = userMapper.selectByKeyAndPassword(user);
+        int influence = userMapper.selectByKeyAndPassword(userParams);
         if(influence == 1){
             result = ResultUtil.success(WizardAuditEnum.StatusEnum.STATUS_SUCCESS.getValue(),WizardAuditEnum.StatusEnum.STATUS_SUCCESS.getDesc());
             logger.info("登录成功->end");
-        }
+        }else {
             logger.info("登录失败—>end");
+        }
+        return result;
+    }
+
+    @Override
+    public ResultModel updateByUserID(HttpServletRequest request, UserParams userParams) {
+        //        初始化序列化结果集
+        ResultModel result = ResultUtil.info(WizardAuditEnum.StatusEnum.STATUS_FAIL.getValue(),WizardAuditEnum.StatusEnum.STATUS_FAIL.getDesc());
+        //查询数据库，返回值为0的化就是没有登录失败，为1的化就是成功
+        int influence = userMapper.updateByUserID(userParams);
+        if(influence == 1){
+            result = ResultUtil.success(WizardAuditEnum.StatusEnum.STATUS_SUCCESS.getValue(),WizardAuditEnum.StatusEnum.STATUS_SUCCESS.getDesc());
+        }
         return result;
     }
 }

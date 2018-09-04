@@ -10,5 +10,21 @@ public interface UserService {
      *根据主键查询用户
      * @Parms request
     */
-    ResultModel selectByKeyAndPassword(HttpServletRequest request, UserParams user);
+    ResultModel selectByKeyAndPassword(HttpServletRequest request, UserParams userParams);
+
+    /**
+     *根据主键查询用户
+     * @Parms request
+     */
+    ResultModel updateByUserID(HttpServletRequest request, UserParams userParams);
+
+
+
+
+
+
+
+
+
+
 }

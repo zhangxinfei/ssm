@@ -7,7 +7,7 @@
 	http://www.springframework.org/schema/context/spring-context.xsd">
 	<!-- 配置整合mybatis过程 -->
 	<!-- 1.配置数据库相关参数properties的属性：${url} -->
-	<context:property-placeholder location="classpath:jdbc.properties" />
+	<context:property-placeholder location="classpath:properties/jdbc.properties" />
 
 	<!-- 2.数据库连接池 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -47,4 +47,13 @@
 		<!-- 给出需要扫描Dao接口包 -->
 		<property name="basePackage" value="com.soecode.lyf.mapper" />
 	</bean>
+	<!--5.配置事务管理器-->
+	<bean id="transactionManager"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!--6.导入Redis的配置文件-->
+	<import resource="classpath:spring-redis.xml" ></import>
+	<!--7.导入AOP配置文件-->
+	<import resource="classpath:spring-aop.xml"></import>
 </beans>

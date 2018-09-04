@@ -26,25 +26,25 @@ public class UserController {
      * 用户登录判断
      * @return
      */
-    @RequestMapping(value = "/Login",method = RequestMethod.POST)
+    @RequestMapping(value = "/selectByKeyAndPassword",method = RequestMethod.POST)
     @ResponseBody
-    public String getLoginStatus(HttpServletRequest request, @RequestBody UserParams userParams){
+    public String selectByKeyAndPassword(HttpServletRequest request, @RequestBody UserParams userParams){
         logger.info("用户登录->start");
         ResultModel result = userService.selectByKeyAndPassword(request,userParams);
         logger.info("用户登录—>end");
         return JSON.toJSONString(result,SerializerFeature.WriteMapNullValue);
     }
 
-//    /**
-//     * 用户登录判断
-//     * @return
-//     */
-//    @RequestMapping(value = "/Login",method = RequestMethod.)
-//    @ResponseBody
-//    public String getLoginStatus(HttpServletRequest request,@RequestBody UserParams userParams){
-//        logger.info("用户登录->start");
-//        ResultModel result = userService.selectByKeyAndPassword(request,userParams);
-//        logger.info("用户登录—>end");
-//        return JSON.toJSONString(result,SerializerFeature.WriteMapNullValue);
-//    }
+    /**
+     * 修改用户信息
+     * @return
+     */
+    @RequestMapping(value = "/updateByUserID",method = RequestMethod.POST)
+    @ResponseBody
+    public String updateByUserID(HttpServletRequest request,@RequestBody UserParams userParams){
+        logger.info("修改用户信息->start");
+        ResultModel result = userService.updateByUserID(request,userParams);
+        logger.info("修改用户信息—>end");
+        return JSON.toJSONString(result,SerializerFeature.WriteMapNullValue);
+    }
 }

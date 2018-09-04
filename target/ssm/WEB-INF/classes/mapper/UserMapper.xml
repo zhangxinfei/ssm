@@ -264,4 +264,33 @@
     from User
     where user_studentId = #{user_studentId,jdbcType=VARCHAR} AND password = #{password,jdbcType=VARCHAR}
   </select>
+  <update id="updateByUserID" parameterType="com.soecode.lyf.entity.params.UserParams">
+    update User
+    set user_name = #{user_name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      user_iphone = #{user_iphone,jdbcType=INTEGER},
+      user_qq = #{user_qq,jdbcType=INTEGER},
+      user_sex = #{user_sex,jdbcType=VARCHAR},
+      user_birthday = #{user_birthday,jdbcType=TIMESTAMP},
+      user_adress = #{user_adress,jdbcType=VARCHAR},
+      user_school = #{user_school,jdbcType=VARCHAR},
+      user_studentId = #{user_studentId,jdbcType=VARCHAR},
+      user_classid = #{user_classid,jdbcType=VARCHAR},
+      user_credit = #{user_credit,jdbcType=INTEGER},
+      user_status = #{user_status,jdbcType=INTEGER},
+      login_state = #{login_state,jdbcType=INTEGER},
+      user_username = #{user_username,jdbcType=VARCHAR},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP},
+      administrators_id = #{administrators_id,jdbcType=INTEGER},
+      user_role = #{user_role,jdbcType=INTEGER}
+    where user_id = #{user_id,jdbcType=INTEGER}
+  </update>
+  <!--查询用户表通过用户id-->
+  <select id="selectByUserId" resultType="int" parameterType="com.soecode.lyf.entity.params.UserParams" >
+    select
+    count(*)
+    from User
+    where user_id = #{user_id,jdbcType=INTEGER}
+  </select>
 </mapper>
