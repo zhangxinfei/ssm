@@ -2,6 +2,9 @@ package com.soecode.lyf.mapper;
 
 import com.soecode.lyf.entity.Commodity;
 
+import java.util.List;
+import java.util.Map;
+
 public interface CommodityMapper {
     int deleteByPrimaryKey(Integer commodityId);
 
@@ -14,4 +17,7 @@ public interface CommodityMapper {
     int updateByPrimaryKeySelective(Commodity record);
 
     int updateByPrimaryKey(Commodity record);
+
+    //查询全部商品信息
+    List<Map<String,Object>> selectCommodityAll();
 }

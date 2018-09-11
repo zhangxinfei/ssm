@@ -38,7 +38,7 @@
     <!-- redis服务器中心 -->
     <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
           destroy-method="destroy">
-        <property name="hostName" value="${redis.host}" />
+        <property name="hostName" value="${redis.hostName}" />
         <!-- <property name="password" value="${redis.password}" /> -->
         <property name="port" value="${redis.port}" />
         <property name="database" value="${redis.default.db}" />

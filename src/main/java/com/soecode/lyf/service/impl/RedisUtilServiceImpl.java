@@ -1,19 +1,11 @@
-package com.soecode.lyf.util.service.impl;
+package com.soecode.lyf.service.impl;
 
-import com.soecode.lyf.util.entity.CommonMemberTokenData;
-import com.soecode.lyf.enums.CommonInfoEnum;
-import com.soecode.lyf.util.service.RedisUtilService;
-import com.soecode.lyf.util.JwtUtils;
-import com.soecode.lyf.util.redis.SerializeUtils;
-import com.alibaba.fastjson.JSON;
-import io.jsonwebtoken.Claims;
+import com.soecode.lyf.service.RedisUtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,7 +17,6 @@ import java.util.concurrent.TimeUnit;
  * 针对所有的Set 都是以s开头的方法                    不含通用方法
  * 针对所有的List 都是以l开头的方法
  */
-@Service
 public class RedisUtilServiceImpl implements RedisUtilService {
 
 
@@ -577,15 +568,15 @@ public class RedisUtilServiceImpl implements RedisUtilService {
         }
     }
 
-    @Override
-    public CommonMemberTokenData getMemberToken(HttpServletRequest request) {
-        String token = request.getHeader("SY-TOKEN");
-        token=(token==null?(String)request.getAttribute("SY-TOKEN"):token);
-        Claims claims = JwtUtils.getClaims(token);
-        CommonMemberTokenData commonMemberTokenData = JSON.parseObject(claims.getSubject(), CommonMemberTokenData.class);
-        byte[] bytes = (byte[])this.get(CommonInfoEnum.redisTokenKey.REDIES_KEY_MEMBER_AUTH_TOKEN.getDesc()+commonMemberTokenData.getMember_code());
-        CommonMemberTokenData tokenInfo= (CommonMemberTokenData) SerializeUtils.deSerialize(bytes);
-        return  tokenInfo;
-    }
+//    @Override
+//    public UserTokenData getMemberToken(HttpServletRequest request) {
+//        String token = request.getHeader("SY-TOKEN");
+//        token=(token==null?(String)request.getAttribute("SY-TOKEN"):token);
+//        Claims claims = JwtUtils.getClaims(token);
+//        UserTokenData userTokenData = JSON.parseObject(claims.getSubject(), UserTokenData.class);
+//        byte[] bytes = (byte[])this.get(CommonInfoEnum.redisTokenKey.REDIES_KEY_MEMBER_AUTH_TOKEN.getDesc()+ userTokenData.getMember_code());
+//        UserTokenData tokenInfo= (UserTokenData) SerializeUtils.deSerialize(bytes);
+//        return  tokenInfo;
+//    }
 
 }

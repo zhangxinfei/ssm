@@ -52,8 +52,10 @@
 		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<!--6.导入Redis的配置文件-->
+	<!--6.导入Redis的配置文件,这个是使用aop切面-->
 	<import resource="classpath:spring-redis.xml" ></import>
 	<!--7.导入AOP配置文件-->
 	<import resource="classpath:spring-aop.xml"></import>
+	<!--8.导入Redis的工具类的配置文件-->
+	<!--<import resource="classpath:spring-redisCluster-test.xml"></import>-->
 </beans>

@@ -1,7 +1,8 @@
-package com.soecode.lyf.util.service;
+package com.soecode.lyf.service;
 
-import com.soecode.lyf.util.entity.CommonMemberTokenData;
+import com.soecode.lyf.util.entity.token.UserTokenData;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Set;
  * Created by wxl on 2018/7/15.
  * redies 工具类
  */
+@Service
 public interface RedisUtilService {
     public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate);
     //=============================common============================
@@ -297,5 +299,5 @@ public interface RedisUtilService {
      * @param request
      * @return
      */
-    public CommonMemberTokenData getMemberToken(HttpServletRequest request);
+//    public UserTokenData getMemberToken(HttpServletRequest request);
 }

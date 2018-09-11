@@ -4,6 +4,9 @@ package com.soecode.lyf.mapper;
 import com.soecode.lyf.entity.User;
 import com.soecode.lyf.entity.params.UserParams;
 
+import java.util.List;
+import java.util.Map;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer userId);
 
@@ -11,7 +14,8 @@ public interface UserMapper {
 
     int insertSelective(User record);
 
-    User selectByPrimaryKey(Integer userId);
+//    通过id和状态查询单个用户信息
+    List<Map<String,Object>> selectUserByPrimaryKey(UserParams userParams);
 
     int updateByPrimaryKeySelective(User record);
 
@@ -26,8 +30,16 @@ public interface UserMapper {
      */
     int updateByUserID(UserParams userParams);
     /*
-     * 通过用户id查询用户表
+     * 查询全部用户信息，通过管理员id
      */
-    int selectByUserId(UserParams userParams);
+    List<Map<String,Object>> selectByUserAll(UserParams userParams);
+    /*
+     * 通过id修改用户信息
+     */
+    int insertByUserId(UserParams userParams);
+    /*
+     * 删除用户信息
+     */
+    int deleteByUserID(UserParams userParams);
 
 }

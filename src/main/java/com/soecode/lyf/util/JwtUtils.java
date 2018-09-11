@@ -55,9 +55,7 @@ public class JwtUtils {
             Date exp = new Date(expMillis);
             jwtBuilder.setExpiration(exp);
         }
-
         return jwtBuilder.compact();
-
     }
 
     //私钥解密token信息
@@ -66,6 +64,15 @@ public class JwtUtils {
                 .setSigningKey(DatatypeConverter.parseBase64Binary(APP_KEY))
                 .parseClaimsJws(jwt).getBody();
     }
+
+
+
+
+
+
+
+
+
     public static void main(String[] args){
     String userId = "123";
     String issuer = "地址";

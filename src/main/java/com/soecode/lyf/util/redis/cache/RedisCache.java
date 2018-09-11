@@ -11,7 +11,6 @@ public class RedisCache {
     @Autowired
     private JedisPool jedisPool = new JedisPool();
 
-
     //从redis缓存中查询，反序列化
     public Object getDataFromRedis(String redisKey){
         //查询

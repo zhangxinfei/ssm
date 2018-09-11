@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.soecode.lyf.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.soecode.lyf.entity.User" >
+  <resultMap id="BaseResultMap" type="com.soecode.lyf.entity.params.UserParams" >
     <id column="user_id" property="user_id" jdbcType="INTEGER" />
     <result column="user_name" property="user_name" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
@@ -23,15 +23,15 @@
     <result column="user_role" property="user_role" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    user_id, user_name, password, user_iphone, user_qq, user_sex, user_birthday, user_adress, 
+    user_id, user_name, password, user_iphone, user_qq, user_sex, user_birthday, user_adress,
     user_school, user_studentId, user_classid, user_credit, user_status, login_state, 
     user_username, create_time, update_time, administrators_id, user_role
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
+  <select id="selectUserByPrimaryKey" resultMap="BaseResultMap" parameterType="com.soecode.lyf.entity.params.UserParams" >
+    select
+    <include refid="Base_Column_List"/>
     from User
-    where user_id = #{user_id,jdbcType=INTEGER}
+    where user_studentId = #{user_studentId,jdbcType=VARCHAR} and user_status = #{user_status,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from User
@@ -254,7 +254,7 @@
       update_time = #{update_time,jdbcType=TIMESTAMP},
       administrators_id = #{administrators_id,jdbcType=INTEGER},
       user_role = #{user_role,jdbcType=INTEGER}
-    where user_id = #{user_id,jdbcType=INTEGER}
+    where user_studentId = #{user_studentId,jdbcType=INTEGER}
   </update>
   
       <!--通过id和密码判断，用户登录-->
@@ -262,7 +262,10 @@
     select
     count(*)
     from User
-    where user_studentId = #{user_studentId,jdbcType=VARCHAR} AND password = #{password,jdbcType=VARCHAR}
+    where user_studentId = #{user_studentId,jdbcType=VARCHAR} and user_status = #{user_status,jdbcType=INTEGER}
+    AND <if test="password != null and password != '' " >
+           password = #{password,jdbcType=VARCHAR}
+         </if>
   </select>
   <update id="updateByUserID" parameterType="com.soecode.lyf.entity.params.UserParams">
     update User
@@ -286,11 +289,33 @@
       user_role = #{user_role,jdbcType=INTEGER}
     where user_id = #{user_id,jdbcType=INTEGER}
   </update>
-  <!--查询用户表通过用户id-->
-  <select id="selectByUserId" resultType="int" parameterType="com.soecode.lyf.entity.params.UserParams" >
+  <!--插入用户信息,使用update，如果成功返回1-->
+  <update id="insertByUserId" parameterType="com.soecode.lyf.entity.params.UserParams" >
+    insert into User (user_name, password,
+      user_iphone, user_qq, user_sex,
+      user_birthday, user_adress, user_school,
+      user_studentId, user_classid, user_credit,
+      user_status, login_state, user_username,
+      create_time, update_time, administrators_id,
+      user_role)
+    values (#{#{user_name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{user_iphone,jdbcType=INTEGER}, #{user_qq,jdbcType=INTEGER}, #{user_sex,jdbcType=VARCHAR},
+      #{user_birthday,jdbcType=TIMESTAMP}, #{user_adress,jdbcType=VARCHAR}, #{user_school,jdbcType=VARCHAR},
+      #{user_studentId,jdbcType=VARCHAR}, #{user_classid,jdbcType=VARCHAR}, #{user_credit,jdbcType=INTEGER},
+      #{user_status,jdbcType=INTEGER}, #{login_state,jdbcType=INTEGER}, #{user_username,jdbcType=VARCHAR},
+      #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}, #{administrators_id,jdbcType=INTEGER},
+      #{user_role,jdbcType=INTEGER})
+  </update>
+  <!--查询全部用户信息,通过管理员id-->
+  <select id="selectByUserAll" resultMap="BaseResultMap" parameterType="com.soecode.lyf.entity.params.UserParams" >
     select
-    count(*)
     from User
-    where user_id = #{user_id,jdbcType=INTEGER}
+    where administrators_id = #{administrators_id,jdbcType=INTEGER}
   </select>
+  <!--删除用户，更改用户状态-->
+  <update id="deleteByUserID" parameterType="com.soecode.lyf.entity.params.UserParams" >
+    update USER
+     set user_status = #{user_status}
+    where user_id = #{user_id,jdbcType=INTEGER}
+  </update>
 </mapper>

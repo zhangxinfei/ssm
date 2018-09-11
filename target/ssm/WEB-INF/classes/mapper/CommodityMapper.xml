@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.soecode.lyf.mapper.CommodityMapper" >
-  <resultMap id="BaseResultMap" type="com.soecode.lyf.entity.Commodity" >
+  <resultMap id="BaseResultMap" type="com.soecode.lyf.entity.params.CommodityParams" >
     <id column="commodity_id" property="commodity_id" jdbcType="INTEGER" />
     <result column="commodity_name" property="commodity_name" jdbcType="VARCHAR" />
     <result column="commodity_price" property="commodity_price" jdbcType="DECIMAL" />
@@ -150,4 +150,12 @@
       commodity_status = #{commodity_status,jdbcType=INTEGER}
     where commodity_id = #{commodity_id,jdbcType=INTEGER}
   </update>
+
+
+  <!--查询全部商品信息-->
+  <select id="selectCommodityAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from Commodity
+  </select>
 </mapper>

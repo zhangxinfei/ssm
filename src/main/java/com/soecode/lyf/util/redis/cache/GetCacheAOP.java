@@ -3,12 +3,15 @@ package com.soecode.lyf.util.redis.cache;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 
-
+import com.soecode.lyf.controller.UserController;
+import com.soecode.lyf.service.impl.RedisUtilServiceImpl;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -22,10 +25,14 @@ public class GetCacheAOP  {
 
     private RedisCache redisCache = new RedisCache();
 
+    private RedisUtilServiceImpl redisUtilServiceImpl = new RedisUtilServiceImpl();
+
+    //日志
+    final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Pointcut("@annotation(com.soecode.lyf.util.redis.cache.GetCache)")
     public void getCache(){
-        System.out.println("我是一个切入点");
+//        System.out.println("我是一个切入点");
     }
 
     /**
@@ -34,41 +41,31 @@ public class GetCacheAOP  {
      */
     @Around("getCache()")
     public Object beforeExec(ProceedingJoinPoint joinPoint){
-
-
         //前置：到redis中查询缓存
-        System.out.println("调用从redis中查询的方法...");
-
+        logger.info("前置：查询Redis中的缓存->start");
         //redis中key格式：    id
         String redisKey = getCacheKey(joinPoint);
-
+        //通过键获取Redis中所有的值
+        //redisUtilServiceImpl.sGet(redisKey);
         //获取从redis中查询到的对象
         Object objectFromRedis = redisCache.getDataFromRedis(redisKey);
-
         //如果查询到了
         if(null != objectFromRedis){
-            System.out.println("从redis中查询到了数据...不需要查询数据库");
+            logger.info("前置：查询Redis中的缓存->end");
             return objectFromRedis;
         }
-
-        System.out.println("没有从redis中查到数据...");
-
+        logger.info("查询数据库->start");
         //没有查到，那么查询数据库
         Object object = null;
         try {
             object = joinPoint.proceed();
         } catch (Throwable e) {
-
             e.printStackTrace();
         }
-
-        System.out.println("从数据库中查询的数据...");
-
+        logger.info("查询数据库->end");
         //后置：将数据库中查询的数据放到redis中
-        System.out.println("调用把数据库查询的数据存储到redis中的方法...");
-
         redisCache.setDataToRedis(redisKey, object);
-        System.out.println("redis中的数据..."+object.toString());
+//        System.out.println("redis中的数据..."+object.toString());
         //将查询到的数据返回
         return object;
     }

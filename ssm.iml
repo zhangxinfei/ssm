@@ -74,5 +74,6 @@
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.6.12" level="project" />
     <orderEntry type="library" name="Maven: cglib:cglib:2.2" level="project" />
     <orderEntry type="library" name="Maven: asm:asm:3.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.8" level="project" />
   </component>
 </module>
